@@ -29,6 +29,17 @@ paths:
       description: Lists examples.
       tags:
         - Examples
+      parameters:
+        - name: firstResult
+          in: query
+          description: First result. Defaults to 0
+          schema:
+            type: integer
+        - name: maxResults
+          in: query
+          description: Max results. Defaults to 10
+          schema:
+            type: integer
       responses:
         '200':
           description: List of examples
@@ -38,6 +49,12 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Example'
+          headers:
+            X-Total-Count:
+              schema:
+                type: integer
+                format: int64
+              description: Total count of examples with given filters.
         '400':
           description: Invalid request was sent to the server
           content:
